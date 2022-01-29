@@ -1,0 +1,97 @@
+Redux Principles
+
+1. First Principle
+
+> The state of our whole appliction is stored in an object tree with in a single store.
+
+example:-
+Let's assume we are tracking the number of cakes on the shelf.
+{
+
+    numberOfCakes: 10
+}
+
+2. Second Principle:-
+
+> "The only way to change the state is to emit an action, an object describing what happened."
+>  Not Allow to directly update the state object.
+
+Cake Shop-
+Let shopkeeper know about our action-   BUY_CAKE
+
+{
+type: BUY_CAKE
+
+}
+
+3. Third Principle:-
+
+> "To specify how the state tree is transformed by actions, you write pure reducers."
+
+Reucer- (previousState, action) => newState
+
+Cake Shop-
+Reducer is the shopkeeper
+
+const Reducer = (state,action)=>{
+switch(action.type){
+case BUY_CAKE: return{
+    numberOfCakes: state.numberOfCakes-1
+} 
+} 
+}
+
+Actions:-
+> 'type' property that indicates the type of action being performed.
+
+**********************************************************
+Type of the action 
+const BUY_CAKE= 'BUY_CAKE'
+{
+
+type: BUY_CAKE,
+info: "First redux action'
+
+}
+
+Action Creator
+function buyCake {
+return {
+
+type: BUY_CAKE,
+info: "First redux action'
+
+}
+}
+Note* Action is an object with the type property
+Action Creator is a function that return a action
+
+(previousState, action) =>newState
+
+const initialState = {
+
+    numberOfCakes:10
+}
+
+const reducer = (state= initialState, action)=>{
+switch(action.type ){
+case BUY_CAKE : return {
+
+    ...state,   //  with the spread opertor it take whole state 
+    numberOfCakes: state.numberOfCakes -1
+}
+default: return state
+}
+
+}
+
+Store-
+
+> Allows access to state via getState()
+> Allow state to be updated via dispatch(action)
+> Registers listeners via subscribe (listeners)
+
+
+Constants:-
+
+constant tells to the actions, which data will go into reducers.(if there are multiple data)
